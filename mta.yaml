@@ -133,7 +133,7 @@ resources:
   - name: cpapp-html5-repo-host
     type: org.cloudfoundry.managed-service
     parameters:
-      service: html5-app-repo
+      service: html5-apps-repo
       service-plan: app-host
   - name: cpapp-repo-host
     type: org.cloudfoundry.managed-service
