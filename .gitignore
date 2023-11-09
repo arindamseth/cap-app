@@ -12,10 +12,14 @@ target/
 # Web IDE, App Studio
 .che/
 .gen/
+dist/
+resources/
+app/*/package-lock.json
 
 # MTA
 *_mta_build_tmp
 *.mtar
+*.mta
 mta_archives/
 
 # Other

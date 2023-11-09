@@ -1,23 +1,19 @@
-<mvc:View
-    controllerName="ns.mitigations.controller.Worklist"
+<mvc:View controllerName="ns.mitigations.controller.Worklist"
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:semantic="sap.f.semantic">
 
-    <semantic:SemanticPage
-        id="page"
+    <semantic:SemanticPage id="page"
         headerPinnable="false"
         toggleHeaderOnTitleClick="false">
 
         <semantic:titleHeading>
-            <Title
-                text="{i18n>worklistTitle}"
+            <Title text="{i18n>worklistTitle}"
                 level="H2"/>
         </semantic:titleHeading>
 
         <semantic:content>
-            <Table
-                id="table"
+            <Table id="table"
                 width="auto"
                 items="{
                     path: '/Mitigations',
@@ -34,18 +30,15 @@
 
                 <headerToolbar>
                     <OverflowToolbar>
-                        <Title
-                            id="tableHeader"
+                        <Title id="tableHeader"
                             text="{worklistView>/worklistTableTitle}"
                             level="H3"/>
                         <ToolbarSpacer />
-                        <SearchField
-                            id="searchField"
+                        <SearchField id="searchField"
                             tooltip="{i18n>worklistSearchTooltip}"
                             search=".onSearch">
                             <layoutData>
-                                <OverflowToolbarLayoutData
-                                    maxWidth="200px"
+                                <OverflowToolbarLayoutData maxWidth="200px"
                                     priority="NeverOverflow"/>
                             </layoutData>
                         </SearchField>
@@ -53,22 +46,27 @@
                 </headerToolbar>
 
                 <columns>
-                    <Column id="nameColumn">
-                        <Text text="{i18n>tableNameColumnTitle}" id="nameColumnTitle"/>
+                    <Column id="DescriptionColumn">
+                        <Text text="Description"
+                            id="DescriptionColumnTitle"/>
                     </Column>
-                    <Column id="unitNumberColumn" hAlign="End">
-                        <Text text="{i18n>tableUnitNumberColumnTitle}" id="unitNumberColumnTitle"/>
+                    <Column id="OwnerColumn">
+                        <Text text="Owner"
+                            id="OwnerColumnTitle"/>
+                    </Column>
+                    <Column id="TimelineColumn">
+                        <Text text="Timeline"
+                            id="TimelineColumnTitle"/>
                     </Column>
                 </columns>
 
                 <items>
-                    <ColumnListItem
-                        type="Navigation"
+                    <ColumnListItem type="Navigation"
                         press=".onPress">
                         <cells>
-                            <ObjectIdentifier
-                                title="{ID}"/>
-                            <ObjectNumber />
+                            <ObjectIdentifier text="{description}" />
+                            <Text text="{owner}" />
+                            <Text text="{timeline}" />
                         </cells>
                     </ColumnListItem>
                 </items>
@@ -76,7 +74,8 @@
         </semantic:content>
 
         <semantic:sendEmailAction>
-            <semantic:SendEmailAction id="shareEmail" press=".onShareEmailPress"/>
+            <semantic:SendEmailAction id="shareEmail"
+                press=".onShareEmailPress"/>
         </semantic:sendEmailAction>
 
     </semantic:SemanticPage>
