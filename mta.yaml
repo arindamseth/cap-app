@@ -9,6 +9,7 @@ modules:
   requires:
   - name: cpapp-uaa
   - name: cpapp-db
+  - name: cpapp-logs
   provides:
   - name: srv-api
     properties:
@@ -22,6 +23,7 @@ modules:
   path: gen/db
   requires:
   - name: cpapp-db
+  - name: cpapp-logs
   parameters:
     buildpack: nodejs_buildpack
 - name: cpapp-destinations
@@ -31,7 +33,7 @@ modules:
     parameters:
       service-key:
         name: cpapp-uaa-key
-  - name: cpapp-html5-repo-host
+  - name: cpapp-html5-repo-host  ##referencing the repo host in the destination
     parameters:
       service-key:
         name: cpapp-html5-repo-host-key
@@ -65,7 +67,7 @@ modules:
   type: com.sap.application.content
   path: .
   requires:
-  - name: cpapp-repo-host
+  - name: cpapp-html5-repo-host     ##referencing the repo host in the application content path
     parameters:
       content-target: true
   build-parameters:
@@ -130,34 +132,15 @@ resources:
       HTML5Runtime_enabled: true
     service: destination
     service-plan: lite
-- name: cpapp-html5-repo-host
+- name: cpapp-html5-repo-host   ##this is the app repo host
   type: org.cloudfoundry.managed-service
   parameters:
     service: html5-apps-repo
     service-plan: app-host
-- name: cpapp-repo-host
+- name: cpapp-logs
   type: org.cloudfoundry.managed-service
   parameters:
-    service: html5-apps-repo
-    service-name: cpapp-html5-srv
-    service-plan: app-host
-- name: cpapp-destination-service
-  type: org.cloudfoundry.managed-service
-  parameters:
-    config:
-      HTML5Runtime_enabled: false
-      init_data:
-        instance:
-          destinations:
-          - Authentication: NoAuthentication
-            Name: ui5
-            ProxyType: Internet
-            Type: HTTP
-            URL: https://ui5.sap.com
-          existing_destinations_policy: update
-      version: 1.0.0
-    service: destination
-    service-name: cpapp-destination-service
+    service: application-logs
     service-plan: lite
 parameters:
   deploy_mode: html5-repo
